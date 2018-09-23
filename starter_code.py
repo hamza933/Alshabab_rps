@@ -6,9 +6,6 @@ import random
 and reports both Player's scores each round."""
 
 moves = ['rock', 'paper', 'scissors']
-reflectmoves1 = ''
-cyclemoves = ''
-
 
 """The Player class is the parent class for all of the Players
 in this game"""
@@ -57,33 +54,33 @@ class HumanPlayer(Player):
 
 class ReflectPlayer:
     scores = 0
+    reflectmoves1 = ''
 
     def move(self):
-        if(reflectmoves1 == ''):
+        if(self.reflectmoves1 == ''):
             return moves[random.randint(0, 2)]
         else:
-            return reflectmoves1
+            return self.reflectmoves1
 
     def learn(self, my_move, their_move):
-        global reflectmoves1
-        reflectmoves1 = their_move
+        self.reflectmoves1 = their_move
         pass
 
 
 class CyclePlayer:
     scores = 0
+    cyclemoves = ''
 
     def move(self):
-        if(cyclemoves == ''):
+        if(self.cyclemoves == ''):
             return moves[random.randint(0, 2)]
-        elif ((moves.index(cyclemoves)+1) > 2):
+        elif ((moves.index(self.cyclemoves)+1) > 2):
             return moves[0]
         else:
-            return moves[moves.index(cyclemoves)+1]
+            return moves[moves.index(self.cyclemoves)+1]
 
     def learn(self, my_move, their_move):
-        global cyclemoves
-        cyclemoves = my_move
+        self.cyclemoves = my_move
         pass
 
 
@@ -124,5 +121,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), RandomPlayer())
+    game = Game(HumanPlayer(), CyclePlayer())
     game.play_game()
