@@ -39,16 +39,18 @@ class HumanPlayer(Player):
         error = 1
         while (error == 1):
             try:
-                movenumber = int(input("Enter step number to move? "), 8)
+                movenumber = int(input("Enter step number to move (1 - 3)? "),
+                                 8) - 1
+                movenumber = movenumber
+                if(movenumber > 3 or movenumber < 1):
+                    raise Exception('')
                 error = 0
                 pass
             except Exception as e:
                 print("You have entered invalid number, please try again")
+                error = 1
                 pass
 
-        if(movenumber > 2 or movenumber < 0):
-            print("The step number should from 0 to 2 ")
-            movenumber = int(input("Enter step number to move? "), 8)
         return moves[movenumber]
 
 
@@ -104,12 +106,15 @@ class Game:
         else:
             print("winner: Computer")
             self.p2.scores = self.p2.scores + 1
+        print(f"your score: {self.p1.scores} computer score: {self.p2.scores}")
 
     def play_game(self):
         print("Game start!")
+        round = 1
         while((self.p1.scores-self.p2.scores) < 3
                 and (self.p2.scores-self.p1.scores) < 3):
             print(f"Round {round}:")
+            round += 1
             self.play_round()
 
         if(self.p1.scores > self.p2.scores):
@@ -121,5 +126,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), CyclePlayer())
+    game = Game(HumanPlayer(), RandomPlayer())
     game.play_game()
