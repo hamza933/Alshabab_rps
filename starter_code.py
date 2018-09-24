@@ -41,8 +41,8 @@ class HumanPlayer(Player):
             try:
                 movenumber = int(input("Enter step number to move (1 - 3)? "),
                                  8) - 1
-                movenumber = movenumber
-                if(movenumber > 3 or movenumber < 1):
+                if(movenumber > 2 or movenumber < 0):
+                    print(movenumber)
                     raise Exception('')
                 error = 0
                 pass
