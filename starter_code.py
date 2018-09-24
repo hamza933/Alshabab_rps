@@ -54,7 +54,7 @@ class HumanPlayer(Player):
         return moves[movenumber]
 
 
-class ReflectPlayer:
+class ReflectPlayer(Player):
     scores = 0
     reflectmoves1 = ''
 
@@ -69,7 +69,7 @@ class ReflectPlayer:
         pass
 
 
-class CyclePlayer:
+class CyclePlayer(Player):
     scores = 0
     cyclemoves = ''
 
@@ -126,5 +126,18 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), RandomPlayer())
+
+    error = 1
+
+    while(error == 1):
+        opponent = input("Please choose 'human' or 'random' (smallcase) ? ")
+        if(opponent == "human"):
+            game = Game(HumanPlayer(), CyclePlayer())
+            error = 0
+        elif(opponent == "random"):
+            game = Game(RandomPlayer(), CyclePlayer())
+            error = 0
+        else:
+            print("You selected wrong choice")
+
     game.play_game()
